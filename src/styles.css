@@ -1,133 +1,27 @@
-body {
-  font-family: sans-serif;
-  background: #f9d1ea;
-  max-width: 800px;
-  margin: 30px;
-  padding: 20px;
-}
-
-.card {
-  padding: 20px;
-  margin: 20px auto;
-  border-radius: 4px;
-  box-sizing: content-box;
-  width: 80%;
-  background-image: url(https://wallpaperaccess.com/full/1762313.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.icon {
-  max-width: 80px;
-  margin-right: 20px;
-  width: 64px;
-  height: 64px;
+.weather-app {
+  max-width: 600px;
+  margin: 30px auto;
+  border: 1px solid #000;
+  border-radius: 5px;
 }
 
 h1 {
-  font-weight: 500;
-  margin: 0;
-  padding: 0;
+  font-family: didot;
   font-size: 24px;
   font-weight: 100;
-  line-height: 29px;
+  line-height: 28px;
   margin-bottom: 0;
-  text-transform: uppercase;
-  font-family: didot;
-}
-
-h3 {
-  text-align: center;
-  font-weight: lighter;
-  text-transform: uppercase;
-  margin: 0;
-  padding: 0;
-  font-size: 20px;
-}
-h4 {
-  text-align: center;
-  font-weight: lighter;
-  text-transform: uppercase;
-  margin: 0;
-  padding: 10px;
-  font-size: 15px;
-}
-
-#celsius-link,
-#fahrenheit-link {
-  font-weight: lighter;
-  font-size: 15px;
 }
 
 ul {
-  font-weight: lighter;
-  text-transform: uppercase;
   margin: 0;
   padding: 0;
-  font-size: 16px;
 }
-
 li {
+  margin: 0;
+  padding: 0;
   list-style: none;
   font-size: 16px;
   font-weight: 100;
   line-height: 19px;
-  margin: 0;
-  padding: 0;
-}
-.details {
-  text-align: center;
-}
-
-.weekdays,
-.week-temperatur,
-.temperatur {
-  background: #f9d1ea;
-}
-
-.weatherForecast {
-  background: #f9d1ea;
-}
-.week,
-.temperatur {
-  text-transform: uppercase;
-  font-weight: lighter;
-  margin: 0;
-  padding: 10px;
-}
-
-#celsius-link,
-#fahrenheit-link {
-  font-size: 20px;
-  color: black;
-  text-decoration: none;
-  display: inline-block;
-}
-
-form {
-  margin: 50 0 50 0;
-  padding: 20px;
-}
-
-button {
-  border-radius: 4px;
-  border: none;
-  background-color: #c7b1e8;
-  color: white;
-  font-size: 18px;
-  text-decoration: uppercase;
-}
-.locationButton {
-  border: none;
-  background: transparent;
-  font-size: 18px;
-  color: rgb(66, 56, 66);
-}
-
-footer {
-  text-align: center;
-  font-weight: lighter;
-  text-transform: uppercase;
-  margin: 0;
-  font-size: 12px;
 }
