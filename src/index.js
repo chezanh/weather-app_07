@@ -1,78 +1,89 @@
-.weather-app {
-  background-image: url("https://c4.wallpaperflare.com/wallpaper/25/62/367/anime-sailor-moon-gameboy-hd-wallpaper-preview.jpg");
-  background-size: auto;
-  max-width: 800px;
-  max-height: fit-content;
-  border-radius: 20px;
-  margin: 30px auto;
-  padding: 30px;
-  border: 1px solid #000;
-  border-radius: 5px;
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[date.getDay()];
+  return `${day} ${hours}:${minutes}`;
 }
 
-h1 {
-  font-family: didot;
-  font-size: 24px;
-  font-weight: 100;
-  line-height: 28px;
-  margin-bottom: 0px;
-  padding: 30px;
+function displayTemperature(response) {
+  let temperatureElement = document.querySelector("#temperature");
+  let cityElement = document.querySelector("#city");
+  let descriptionElement = document.querySelector("#description");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
+  let dateElement = document.querySelector("#date");
+  let iconElement = document.querySelector("#icon");
+
+  celsiusTemperature = response.data.main.temp;
+
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+  cityElement.innerHTML = response.data.name;
+  descriptionElement.innerHTML = response.data.weather[0].description;
+  humidityElement.innerHTML = response.data.main.humidity;
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+  dateElement.innerHTML = formatDate(response.data.dt * 1000);
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
-ul {
-  margin: 0px;
-  padding: 0px;
-}
-li {
-  margin: 0px;
-  padding: 0px;
-  list-style: none;
-  font-size: 16px;
-  font-weight: 100;
-  line-height: 19px;
-}
-li::first-letter {
-  text-transform: capitalize;
+function search(city) {
+  let apiKey = "8de6bde1fb33f748c69f49c1d9ee5f10";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
 }
 
-.weather-app-wrapper {
-  max-width: 800px;
-  max-height: fit-content;
-  margin: 30px auto;
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#city-input");
+  search(cityInputElement.value);
 }
 
-.overview {
-  margin-bottom: 20px;
+function displayFahrenheitTemperature(event) {
+  event.preventDefault();
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  fahrenheitLink.classList.add("active");
+  celsiusLink.classList.remove("active");
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
-.d-flex weather-temperature img {
-  margin-right: 5px;
-  height: 60px;
-  width: 60px;
+function displayCelsiusTemperature(event) {
+  event.preventDefault();
+  fahrenheitLink.classList.remove("active");
+  celsiusLink.classList.add("active");
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
-#temperature {
-  font-size: 34px;
-  font-weight: 400px;
-  line-height: 1;
-}
+let celsiusTemperature = null;
 
-#icon {
-  position: relative;
-  font-size: 16px;
-  top: auto;
-}
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
 
-.units {
-  position: relative;
-  font-size: 16px;
-  top: -13px;
-}
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
-#linkedin {
-  text-align: center;
-  display: block;
-  margin: 0 auto;
-  padding: 0;
-  font-size: 10px;
-}
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
+
+search("Zurich");
